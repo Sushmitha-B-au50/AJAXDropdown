@@ -1,0 +1,11 @@
+﻿@model AjaxDropdown.Models.State
+
+<option value="">--Select State--</option>
+
+@if (ViewBag.stateslist != null)
+{
+    foreach (var item in ViewBag.stateslist)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}

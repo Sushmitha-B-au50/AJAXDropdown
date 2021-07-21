@@ -1,0 +1,54 @@
+﻿
+@model AjaxDropdown.Models.AjaxDD
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>AjaxDropDownList</h2>
+@if (ViewBag.CountryList != null)
+{
+    @Html.DropDownListFor(m => m.CountryID, ViewBag.CountryList as SelectList, "--Select Country Name--", new { @class = "form-control" })
+
+}
+<br/>
+@Html.DropDownListFor(m => m.StatesID, new SelectList(""), "--Select States--", new { @class = "form-control" })
+
+<br/>
+
+@Html.DropDownListFor(m => m.CityID, new SelectList(""), "--Select Cities--", new { @class = "form-control" })
+
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#CountryID").change(function () {
+            var CountryID = $(this).val();
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/DD/GetStatesList?CountryID=" + CountryID,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#StatesID").empty();
+                    $("#StatesID").append(response);
+                }
+            })
+        })
+        $("#StatesID").change(function () {
+            var StatesID = $(this).val();
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/DD/GetCityList?StatesID=" + StatesID,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#CityID").empty();
+                    $("#CityID").append(response);
+                }
+            })
+        })
+    })
+</script>

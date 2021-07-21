@@ -1,0 +1,11 @@
+﻿@model AjaxDropdown.Models.City
+
+<option value="">--Select City--</option>
+
+@if (ViewBag.Citieslist != null)
+{
+    foreach (var item in ViewBag.Citieslist)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}
